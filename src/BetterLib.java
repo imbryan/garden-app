@@ -85,6 +85,10 @@ public class BetterLib {
 		return calendar.get(option);
 	}
 	
+	public static Calendar getCalendar() {
+		return calendar;
+	}
+	
 	// Mutator methods
 	
 	public static void setSDF(String pattern, Locale locale) {

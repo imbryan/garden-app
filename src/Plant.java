@@ -1,5 +1,6 @@
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 public class Plant {
 	private String species;		
@@ -8,21 +9,24 @@ public class Plant {
 	
 	private long age; // Weeks that passed since planted
 	private long sinceWatered; // Hours that passed since lastWatered
+	
+	private int requiredWatering; // A plant needs water every requiredWatering days
 
 
-	public Plant(String species, Date planted, Date watered) {
+	public Plant(String species, Date planted, Date watered, int watering) {
 		setPlanted(planted);
 		setLastWatered(watered);
 		setAge(BetterLib.hoursToWeeks(BetterLib.calculateHours(planted)));
 		setSinceWatered(BetterLib.calculateHours(watered));
 		setSpecies(species);
+		setRequiredWatering(watering);
 	}
 	
 	public String toString() {
-		String generate, plantDate="", waterDate="";
+		String generate, plantDate="", waterDate="",waterReq="";
 		int count = 0;
 		
-		// My way of reducing redundancy (I didn't say it was effective)
+		// My way of reducing redundancy (But I didn't say it was efficient)
 		while(count<2) {
 			if(count==0)
 				BetterLib.setCalendar(planted);
@@ -35,13 +39,18 @@ public class Plant {
 			
 			if(count==0)
 				plantDate = generate;
-			else
+			else {
 				waterDate = generate;
+			}
+				
 			
 			count++;
 		}
 		
-		return species+"\nPlanted: "+plantDate+", "+age+" week(s) old\nLast Watered: "+waterDate+", "+sinceWatered+" hour(s) ago";
+		if (sinceWatered >= requiredWatering*24)
+					waterReq = "This plant needs to be watered";
+		
+		return species+"\nPlanted: "+plantDate+", "+age+" week(s) old\nLast Watered: "+waterDate+", "+sinceWatered+" hour(s) ago\n"+waterReq;
 	}
 	
 	// Accessor methods
@@ -66,6 +75,10 @@ public class Plant {
 		return sinceWatered;
 	}
 	
+	public int getRequiredWatering() {
+		return requiredWatering;
+	}
+	
 	// Mutator methods
 	
 	public void setPlanted(Date planted) {
@@ -86,5 +99,9 @@ public class Plant {
 	
 	public void setSinceWatered(long sinceWatered) {
 		this.sinceWatered = sinceWatered;
+	}
+	
+	public void setRequiredWatering(int requiredWatering) {
+		this.requiredWatering = requiredWatering;
 	}
 }

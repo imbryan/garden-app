@@ -10,9 +10,8 @@
  *
  *    Short-Term Issue List
  *    
- *    -Add Plant.requiredWatering
  *    -Add Garden class
- *    -Entry saving, modifying, and deleting
+ *    -Entry saving, modifying, and deleting (such as updating last watered date)
  *    -View plants/garden
  *    
  *    * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -44,7 +43,8 @@ public class GardenApp {
 				try {
 				    Plant p = new Plant(BetterLib.readString("Enter species name"), 
 						BetterLib.readDate("Enter date seed was planted", "MM/dd/yyyy", "MM/dd/yyyy"), 
-						BetterLib.readDate("Enter last time watered", "MM/dd/yyyy h:mm a", "MM/dd/yyyy h:mm AM"));
+						BetterLib.readDate("Enter last time watered", "MM/dd/yyyy h:mm a", "MM/dd/yyyy h:mm AM"),
+						BetterLib.readInteger("Enter the frequency of this plant's required watering in days"));
 				
 				    BetterLib.display(p.toString());
 				}
